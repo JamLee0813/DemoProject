@@ -1,4 +1,5 @@
 ﻿using DataCenter.Common.Helper;
+using DemoProject.Common.Config;
 using DemoProject.CommonBiz.Enumeration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

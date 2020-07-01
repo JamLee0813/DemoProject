@@ -31,8 +31,8 @@
             <summary>
                 登录
             </summary>
-            <param name="Loginname">登录名</param>
-            <param name="Password">密码</param>
+            <param name="loginname">登录名</param>
+            <param name="password">密码</param>
             <returns></returns>
         </member>
         <member name="T:DemoProject.Filter.GlobalExceptionsFilter">

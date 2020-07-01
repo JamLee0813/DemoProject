@@ -49,7 +49,7 @@ namespace DemoProject
                 .SetCompatibilityVersion(CompatibilityVersion.Latest)
                 .AddNewtonsoftJson(o =>
                 {
-                    o.SerializerSettings.ContractResolver = new DefaultContractResolver(); //取消默认驼峰
+                    //o.SerializerSettings.ContractResolver = new DefaultContractResolver(); //取消默认驼峰
                     o.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local; //匹配时区
                 });
 

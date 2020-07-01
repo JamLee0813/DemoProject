@@ -15,16 +15,16 @@ namespace DemoProject.Controllers
         /// <summary>
         ///     登录
         /// </summary>
-        /// <param name="Loginname">登录名</param>
-        /// <param name="Password">密码</param>
+        /// <param name="loginname">登录名</param>
+        /// <param name="password">密码</param>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        public MessageModel<object> Login(string Loginname, string Password)
+        public MessageModel<object> Login(string loginname, string password)
         {
             var data = new MessageModel<object>();
 
-            if (!string.IsNullOrEmpty(Loginname) && !string.IsNullOrEmpty(Password))
+            if (!string.IsNullOrEmpty(loginname) && !string.IsNullOrEmpty(password))
             {
                 //TODO 校验用户名、密码
 
