@@ -29,7 +29,7 @@ namespace DemoProject.Controllers
                 //TODO 校验用户名、密码
                 if (loginname.Equals("admin") && password.Equals("admin"))
                 {
-                    var tokenModelJwt = new TokenModelJwt() { Uid = 1, Role = "admin" };
+                    var tokenModelJwt = new TokenModelJwt() { Uid = 1, Role = RoleType.Admin };
                     string jwtStr = IssueJwt(tokenModelJwt);
 
                     data.Status = (int)HttpStatusEnum.Success;

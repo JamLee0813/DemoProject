@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace DemoProject.CommonBiz.Enumeration
 {
     /// <summary>
-    ///     HTTP状态码
+    ///     Http返回状态码
     /// </summary>
     public enum HttpStatusEnum
     {
@@ -145,12 +145,12 @@ namespace DemoProject.CommonBiz.Enumeration
     }
 
     /// <summary>
-    ///     Http返回状态码帮助类
+    ///     Http返回状态码 帮助类
     /// </summary>
     public static class HttpStatusHelper
     {
         /// <summary>
-        ///     返回Http状态码的描述文本
+        ///     Http返回状态码 描述文本
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
