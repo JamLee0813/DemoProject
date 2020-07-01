@@ -1,4 +1,4 @@
-﻿using DemoProject.Common.Enumeration;
+﻿using DemoProject.CommonBiz.Enumeration;
 using DemoProject.Model.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

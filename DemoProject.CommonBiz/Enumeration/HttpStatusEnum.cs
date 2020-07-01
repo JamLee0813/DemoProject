@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace DemoProject.Common.Enumeration
+namespace DemoProject.CommonBiz.Enumeration
 {
     /// <summary>
     ///     HTTP状态码

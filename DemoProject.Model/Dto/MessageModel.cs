@@ -1,4 +1,4 @@
-﻿using DemoProject.Common.Enumeration;
+﻿using DemoProject.CommonBiz.Enumeration;
 
 namespace DemoProject.Model.Dto
 {
