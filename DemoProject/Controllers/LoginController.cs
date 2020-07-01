@@ -2,6 +2,7 @@
 using DemoProject.Model.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static DemoProject.AuthHelper.JwtHelper;
 
 namespace DemoProject.Controllers
 {
@@ -23,24 +24,23 @@ namespace DemoProject.Controllers
         public MessageModel<object> Login(string loginname, string password)
         {
             var data = new MessageModel<object>();
-
             if (!string.IsNullOrEmpty(loginname) && !string.IsNullOrEmpty(password))
             {
                 //TODO 校验用户名、密码
+                if (loginname.Equals("admin") && password.Equals("admin"))
+                {
+                    var tokenModelJwt = new TokenModelJwt() { Uid = 1, Role = "admin" };
+                    string jwtStr = IssueJwt(tokenModelJwt);
 
-                //var id = user.Id;
-                //var name = user.Name;
-                //var userGroups = user.UserGroups;
-
-                var token = "";
-                data.Status = (int)HttpStatusEnum.Success;
-                data.Msg = HttpStatusEnum.Success.GetDescription();
-                data.Response = token;
-                return data;
+                    data.Status = (int)HttpStatusEnum.Success;
+                    data.Msg = HttpStatusEnum.Success.GetDescription();
+                    data.Response = jwtStr;
+                    return data;
+                }
             }
 
-            data.Status = (int)HttpStatusEnum.UserLoginError;
-            data.Msg = HttpStatusEnum.UserLoginError.GetDescription();
+            data.Status = (int)HttpStatusEnum.PermissionNoAccess;
+            data.Msg = HttpStatusEnum.PermissionNoAccess.GetDescription();
             return data;
         }
     }

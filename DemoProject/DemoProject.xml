@@ -4,6 +4,48 @@
         <name>DemoProject</name>
     </assembly>
     <members>
+        <member name="T:DemoProject.AuthHelper.AppSecretConfig">
+            <summary>
+                服务密钥配置
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.AppSecretConfig.GetAudience_Secret_String">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DemoProject.AuthHelper.JwtHelper">
+            <summary>
+                JWT帮助类
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.JwtHelper.IssueJwt(DemoProject.AuthHelper.JwtHelper.TokenModelJwt)">
+            <summary>
+                颁发JWT字符串
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoProject.AuthHelper.JwtHelper.TokenModelJwt">
+            <summary>
+                令牌
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.JwtHelper.TokenModelJwt.Uid">
+            <summary>
+                Id
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.JwtHelper.TokenModelJwt.Role">
+            <summary>
+                角色
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.JwtHelper.TokenModelJwt.Work">
+            <summary>
+                职能
+            </summary>
+        </member>
         <member name="T:DemoProject.Controllers.HomeController">
             <summary>
             </summary>
