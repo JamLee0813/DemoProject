@@ -1,4 +1,4 @@
-﻿namespace DemoProject.CommonBiz.Enumeration
+﻿namespace DemoProject.CommonBiz.Const
 {
     /// <summary>
     ///     角色类型

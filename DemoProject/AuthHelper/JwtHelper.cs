@@ -1,4 +1,4 @@
-﻿using DemoProject.Common.Config;
+﻿using DemoProject.CommonBiz.Config;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -21,9 +21,9 @@ namespace DemoProject.AuthHelper
         /// <returns></returns>
         public static string IssueJwt(TokenModelJwt tokenModel)
         {
-            string iss = AppSettings.App(new string[] { "Audience", "Issuer" });
-            string aud = AppSettings.App(new string[] { "Audience", "Audience" });
-            string secret = AppSecretConfig.GetAudience_Secret_String();
+            var iss = ConfigFile.AudienceIssuer;
+            var aud = ConfigFile.Audience;
+            var secret = AppSecretConfig.GetAudience_Secret_String();
 
             //var claims = new Claim[] //old
             var claims = new List<Claim>
@@ -36,12 +36,12 @@ namespace DemoProject.AuthHelper
 
          new Claim(JwtRegisteredClaimNames.Jti, tokenModel.Uid.ToString()),
          new Claim(JwtRegisteredClaimNames.Iat, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}"),
-         new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
+         new Claim(JwtRegisteredClaimNames.Nbf, $"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
          //这个就是过期时间，目前是过期1000秒，可自定义，注意JWT有自己的缓冲过期时间
-         new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddSeconds(1000)).ToUnixTimeSeconds()}"),
+         new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddSeconds(1000)).ToUnixTimeSeconds()}"),
          new Claim(ClaimTypes.Expiration, DateTime.Now.AddSeconds(1000).ToString()),
-         new Claim(JwtRegisteredClaimNames.Iss,iss),
-         new Claim(JwtRegisteredClaimNames.Aud,aud),
+         new Claim(JwtRegisteredClaimNames.Iss, iss),
+         new Claim(JwtRegisteredClaimNames.Aud, aud),
 
          //new Claim(ClaimTypes.Role,tokenModel.Role),//为了解决一个用户多个角色(比如：Admin,System)，用下边的方法
         };

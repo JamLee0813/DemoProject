@@ -4,6 +4,77 @@
         <name>DemoProject</name>
     </assembly>
     <members>
+        <member name="T:DemoProject.AuthHelper.StatusCode">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:DemoProject.AuthHelper.StatusCode.CODE401">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:DemoProject.AuthHelper.StatusCode.CODE403">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:DemoProject.AuthHelper.StatusCode.CODE404">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:DemoProject.AuthHelper.StatusCode.CODE500">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:DemoProject.AuthHelper.ApiResponse">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:DemoProject.AuthHelper.ApiResponse.MessageModel">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.ApiResponse.#ctor(DemoProject.AuthHelper.StatusCode,System.String)">
+            <summary>
+            </summary>
+            <param name="apiCode"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="P:DemoProject.AuthHelper.ApiResponse.Status">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.ApiResponse.Value">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:DemoProject.AuthHelper.ApiResponseHandler">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.ApiResponseHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)">
+            <summary>
+            </summary>
+            <param name="options"></param>
+            <param name="logger"></param>
+            <param name="encoder"></param>
+            <param name="clock"></param>
+        </member>
+        <member name="M:DemoProject.AuthHelper.ApiResponseHandler.HandleAuthenticateAsync">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DemoProject.AuthHelper.ApiResponseHandler.HandleChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoProject.AuthHelper.ApiResponseHandler.HandleForbiddenAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
         <member name="T:DemoProject.AuthHelper.AppSecretConfig">
             <summary>
                 服务密钥配置
@@ -13,6 +84,16 @@
             <summary>
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:DemoProject.AuthHelper.AuthorizationSetup">
+            <summary>
+                鉴权 启动服务
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.AuthorizationSetup.AddAuthorizationSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            </summary>
+            <param name="services"></param>
         </member>
         <member name="T:DemoProject.AuthHelper.JwtHelper">
             <summary>
@@ -44,6 +125,104 @@
         <member name="P:DemoProject.AuthHelper.JwtHelper.TokenModelJwt.Work">
             <summary>
                 职能
+            </summary>
+        </member>
+        <member name="T:DemoProject.AuthHelper.PermissionHandler">
+            <summary>
+                权限授权处理器
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.PermissionHandler.#ctor(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+                构造函数注入
+            </summary>
+            <param name="schemes"></param>
+            <param name="accessor"></param>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionHandler.Schemes">
+            <summary>
+                验证方案提供对象
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.PermissionHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,DemoProject.AuthHelper.PermissionRequirement)">
+            <summary>
+                重写异步处理程序
+            </summary>
+            <param name="context"></param>
+            <param name="requirement"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoProject.AuthHelper.PermissionItem">
+            <summary>
+                用户或角色或其他凭据实体,就像是订单详情一样 之前的名字是 Permission
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionItem.Role">
+            <summary>
+                用户或角色或其他凭据名称
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionItem.Url">
+            <summary>
+                请求Url
+            </summary>
+        </member>
+        <member name="T:DemoProject.AuthHelper.PermissionRequirement">
+            <summary>
+                必要参数类，类似一个订单信息 继承 IAuthorizationRequirement，用于设计自定义权限处理器PermissionHandler
+                因为AuthorizationHandler 中的泛型参数 TRequirement 必须继承 IAuthorizationRequirement
+            </summary>
+        </member>
+        <member name="M:DemoProject.AuthHelper.PermissionRequirement.#ctor(System.String,System.Collections.Generic.List{DemoProject.AuthHelper.PermissionItem},System.String,System.String,System.String,Microsoft.IdentityModel.Tokens.SigningCredentials,System.TimeSpan)">
+            <summary>
+                构造
+            </summary>
+            <param name="deniedAction">拒约请求的url</param>
+            <param name="permissions">权限集合</param>
+            <param name="claimType">声明类型</param>
+            <param name="issuer">发行人</param>
+            <param name="audience">订阅人</param>
+            <param name="signingCredentials">签名验证实体</param>
+            <param name="expiration">过期时间</param>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.Permissions">
+            <summary>
+                用户权限集合，一个订单包含了很多详情，同理，一个网站的认证发行中，也有很多权限详情(这里是Role和URL的关系)
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.DeniedAction">
+            <summary>
+                无权限action
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.ClaimType">
+            <summary>
+                认证授权类型
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.LoginPath">
+            <summary>
+                请求路径
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.Issuer">
+            <summary>
+                发行人
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.Audience">
+            <summary>
+                订阅人
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.Expiration">
+            <summary>
+                过期时间
+            </summary>
+        </member>
+        <member name="P:DemoProject.AuthHelper.PermissionRequirement.SigningCredentials">
+            <summary>
+                签名验证
             </summary>
         </member>
         <member name="T:DemoProject.Controllers.HomeController">

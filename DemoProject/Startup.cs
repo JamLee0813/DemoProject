@@ -1,3 +1,6 @@
+using DataCenter.Common.Helper;
+using DemoProject.AuthHelper;
+using DemoProject.CommonBiz.Config;
 using DemoProject.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace DemoProject
 {
@@ -37,6 +39,12 @@ namespace DemoProject
 
             app.UseMvc();
             app.UseSwaggerMiddleware(); //封装Swagger展示
+            app.UseAuthentication();// 先开启认证
+            app.UseAuthorization();// 然后是授权中间件
+
+            //app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            Log.WriteLine($"[{ConfigFile.AppName}] 启动");
         }
 
         /// <summary>
@@ -54,6 +62,7 @@ namespace DemoProject
                 });
 
             services.AddSwaggerSetup();
+            services.AddAuthorizationSetup();
         }
     }
 }

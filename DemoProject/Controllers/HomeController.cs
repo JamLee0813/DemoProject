@@ -1,6 +1,6 @@
 ﻿using DataCenter.Common.Helper;
-using DemoProject.Common.Config;
-using DemoProject.CommonBiz.Enumeration;
+using DemoProject.CommonBiz.Const;
+using DemoProject.CommonBiz.GlobalVar;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +20,7 @@ namespace DemoProject.Controllers
         [HttpGet]
         public string Hello(string name)
         {
-            var msg = $"Hello {name}!";
+            var msg = string.IsNullOrWhiteSpace(name) ? "Hello!" : $"Hello {name}!";
             Log.WriteLine(msg);
             return msg;
         }
@@ -31,10 +31,10 @@ namespace DemoProject.Controllers
         /// <param name="name">姓名</param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = RoleType.Admin)]
+        [Authorize(Permissions.Name)]
         public string HelloLock(string name)
         {
-            var msg = $"Hello {name}!(Lock)";
+            var msg = string.IsNullOrWhiteSpace(name) ? "Hello!(Lock)" : $"Hello {name}!(Lock)";
             Log.WriteLine(msg);
             return msg;
         }

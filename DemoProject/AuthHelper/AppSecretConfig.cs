@@ -1,4 +1,4 @@
-﻿using DemoProject.Common.Config;
+﻿using DemoProject.CommonBiz.Config;
 using System.IO;
 
 namespace DemoProject.AuthHelper
@@ -8,8 +8,8 @@ namespace DemoProject.AuthHelper
     /// </summary>
     public class AppSecretConfig
     {
-        private static readonly string Audience_Secret = AppSettings.App(new string[] { "Audience", "Secret" });
-        private static readonly string Audience_Secret_File = AppSettings.App(new string[] { "Audience", "SecretFile" });
+        private static readonly string Audience_Secret = ConfigFile.AudienceSecret;
+        private static readonly string Audience_Secret_File = ConfigFile.AudienceSecretFile;
 
         /// <summary>
         /// </summary>
