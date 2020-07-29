@@ -1,4 +1,4 @@
-﻿using DemoProject.CommonBiz.Config;
+﻿using DemoProject.Common.Config;
 using System.IO;
 
 namespace DemoProject.AuthHelper

@@ -1,6 +1,6 @@
-﻿using DemoProject.CommonBiz.Helper;
+﻿using DemoProject.Common.Helper;
 
-namespace DemoProject.CommonBiz.Config
+namespace DemoProject.Common.Config
 {
     /// <summary>
     ///     配置信息读取模型

@@ -1,4 +1,4 @@
-﻿using DemoProject.CommonBiz.Config;
+﻿using DemoProject.Common.Config;
 using DemoProject.CommonBiz.GlobalVar;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

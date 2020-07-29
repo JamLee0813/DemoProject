@@ -1,4 +1,4 @@
-﻿using DemoProject.CommonBiz.Config;
+﻿using DemoProject.Common.Config;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;

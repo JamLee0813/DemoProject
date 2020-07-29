@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DemoProject.CommonBiz.Helper
+namespace DemoProject.Common.Helper
 {
     /// <summary>
     ///     配置访问工具类 bob 2019-07-08
