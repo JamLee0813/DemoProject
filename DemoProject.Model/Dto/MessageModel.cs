@@ -53,19 +53,19 @@ namespace DemoProject.Model.Dto
         ///     返回数据
         /// </summary>
         public T Response { get; set; }
-    }
 
-    /// <summary>
-    ///     通用返回信息帮助类
-    /// </summary>
-    public class MessageModelHelper
-    {
         /// <summary>
-        ///     返回成功的快速方法
+        ///     服务异常的返回模型
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static MessageModel<T> Exception(string msg = null) => new MessageModel<T>(HttpStatusEnum.ServerException, msg);
+
+        /// <summary>
+        ///     成功的返回模型
+        /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static MessageModel<T> Ok<T>(T response) => new MessageModel<T>(HttpStatusEnum.Success, response);
+        public static MessageModel<T> Success(T response) => new MessageModel<T>(HttpStatusEnum.Success, response);
     }
 }

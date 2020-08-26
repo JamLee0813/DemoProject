@@ -1,7 +1,7 @@
 using DataCenter.Common.Helper;
 using DemoProject.AuthHelper;
 using DemoProject.Common.Config;
-using DemoProject.Middlewares;
+using DemoProject.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

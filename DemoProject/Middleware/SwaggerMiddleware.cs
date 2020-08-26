@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace DemoProject.Middlewares
+namespace DemoProject.Middleware
 {
     /// <summary>
     ///     Swagger中间件

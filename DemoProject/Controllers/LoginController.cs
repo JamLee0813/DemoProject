@@ -33,7 +33,7 @@ namespace DemoProject.Controllers
                     };
                     var jwtStr = IssueJwt(tokenModelJwt);
 
-                    return MessageModelHelper.Ok((object)jwtStr);
+                    return MessageModel<object>.Success(jwtStr);
                 }
             }
 

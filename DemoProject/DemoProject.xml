@@ -279,17 +279,17 @@
             <param name="ex"></param>
             <returns></returns>
         </member>
-        <member name="T:DemoProject.Middlewares.SwaggerMiddleware">
+        <member name="T:DemoProject.Middleware.SwaggerMiddleware">
             <summary>
                 Swagger中间件
             </summary>
         </member>
-        <member name="M:DemoProject.Middlewares.SwaggerMiddleware.UseSwaggerMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:DemoProject.Middleware.SwaggerMiddleware.UseSwaggerMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             </summary>
             <param name="app"></param>
         </member>
-        <member name="M:DemoProject.Middlewares.SwaggerMiddleware.AddSwaggerSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:DemoProject.Middleware.SwaggerMiddleware.AddSwaggerSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             </summary>
             <param name="services"></param>
