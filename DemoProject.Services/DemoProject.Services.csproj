@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DemoProject.Model\DemoProject.Model.csproj" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\DemoProject.Repository\DemoProject.Repository.csproj" />
   </ItemGroup>
 
 </Project>

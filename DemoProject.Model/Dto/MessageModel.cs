@@ -55,17 +55,17 @@ namespace DemoProject.Model.Dto
         public T Response { get; set; }
 
         /// <summary>
-        ///     服务异常的返回模型
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public static MessageModel<T> Exception(string msg = null) => new MessageModel<T>(HttpStatusEnum.ServerException, msg);
-
-        /// <summary>
         ///     成功的返回模型
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
         public static MessageModel<T> Success(T response) => new MessageModel<T>(HttpStatusEnum.Success, response);
+
+        /// <summary>
+        ///     服务异常的返回模型
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public static MessageModel<T> Exception(string msg = null) => new MessageModel<T>(HttpStatusEnum.ServerException, msg);
     }
 }

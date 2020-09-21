@@ -1,14 +1,15 @@
 using DataCenter.Common.Helper;
 using DemoProject.AuthHelper;
 using DemoProject.Common.Config;
+using DemoProject.Filter;
 using DemoProject.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace DemoProject
 {
@@ -37,12 +38,12 @@ namespace DemoProject
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
-            app.UseMvc();
-            app.UseSwaggerMiddleware(); //封装Swagger展示
-            app.UseAuthentication();// 先开启认证
-            app.UseAuthorization();// 然后是授权中间件
+            app.UseSwaggerMiddleware();//封装Swagger展示
+            app.UseRouting();
+            app.UseAuthentication();//先开启认证
+            app.UseAuthorization();//然后是授权中间件
 
-            //app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             Log.WriteLine($"[{ConfigFile.AppName}] 启动");
         }
@@ -53,16 +54,20 @@ namespace DemoProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(o => o.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Latest)
-                .AddNewtonsoftJson(o =>
-                {
-                    //o.SerializerSettings.ContractResolver = new DefaultContractResolver(); //取消默认驼峰
-                    o.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local; //匹配时区
-                });
-
             services.AddSwaggerSetup();
             services.AddAuthorizationSetup();
+
+            services.AddControllers(o =>
+                {
+                    o.Filters.Add(typeof(GlobalExceptionsFilter)); // 全局异常过滤
+                })
+                //全局配置Json序列化处理
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; //忽略循环引用
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver(); //取消默认驼峰
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local; //匹配时区
+                });
         }
     }
 }

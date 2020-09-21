@@ -12,6 +12,11 @@ namespace DemoProject.Common.Config
         /// </summary>
         public static string AppName => ConfigHelper.GetValue("AppSettings:AppName");
 
+        /// <summary>
+        ///     数据库连接字串
+        /// </summary>
+        public static string ConnectionString => ConfigHelper.GetValue("ConnectionStrings:db");
+
         #region 鉴权配置
 
         /// <summary>

@@ -252,7 +252,7 @@
             <summary>
                 登录
             </summary>
-            <param name="loginname">登录名</param>
+            <param name="loginName">登录名</param>
             <param name="password">密码</param>
             <returns></returns>
         </member>
