@@ -1,4 +1,5 @@
 ﻿using DemoProject.Common.Config;
+using System;
 using System.IO;
 
 namespace DemoProject.AuthHelper
@@ -8,8 +9,8 @@ namespace DemoProject.AuthHelper
     /// </summary>
     public class AppSecretConfig
     {
-        private static readonly string Audience_Secret = ConfigFile.AudienceSecret;
-        private static readonly string Audience_Secret_File = ConfigFile.AudienceSecretFile;
+        private static readonly string AudienceSecret = ConfigFile.AudienceSecret;
+        private static readonly string AudienceSecretFile = ConfigFile.AudienceSecretFile;
 
         /// <summary>
         /// </summary>
@@ -18,18 +19,18 @@ namespace DemoProject.AuthHelper
 
         private static string InitAudience_Secret()
         {
-            var securityString = DifDBConnOfSecurity(Audience_Secret_File);
-            if (!string.IsNullOrEmpty(Audience_Secret_File) && !string.IsNullOrEmpty(securityString))
+            var securityString = DifDbConnOfSecurity(AudienceSecretFile);
+            if (!string.IsNullOrEmpty(AudienceSecretFile) && !string.IsNullOrEmpty(securityString))
             {
                 return securityString;
             }
             else
             {
-                return Audience_Secret;
+                return AudienceSecret;
             }
         }
 
-        private static string DifDBConnOfSecurity(params string[] conn)
+        private static string DifDbConnOfSecurity(params string[] conn)
         {
             foreach (var item in conn)
             {
@@ -40,10 +41,13 @@ namespace DemoProject.AuthHelper
                         return File.ReadAllText(item).Trim();
                     }
                 }
-                catch (System.Exception) { }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
 
-            return conn[conn.Length - 1];
+            return conn[^1];
         }
     }
 }

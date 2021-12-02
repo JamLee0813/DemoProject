@@ -38,7 +38,6 @@ namespace DemoProject.Repository.Sugar
                 ConnectionString = _connectionString,
                 DbType = _dbType,
                 IsAutoCloseConnection = blnIsAutoCloseConnection,
-                IsShardSameThread = false,
                 ConfigureExternalServices = new ConfigureExternalServices(),
                 MoreSettings = new ConnMoreSettings
                 {
@@ -73,7 +72,6 @@ namespace DemoProject.Repository.Sugar
                 ConnectionString = connectionString,
                 DbType = DbType.PostgreSQL,
                 IsAutoCloseConnection = true,
-                IsShardSameThread = false,
                 ConfigureExternalServices = new ConfigureExternalServices(),
                 MoreSettings = new ConnMoreSettings
                 {

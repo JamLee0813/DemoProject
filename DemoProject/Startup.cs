@@ -1,3 +1,4 @@
+using Autofac;
 using DataCenter.Common.Helper;
 using DemoProject.AuthHelper;
 using DemoProject.Common.Config;
@@ -47,6 +48,12 @@ namespace DemoProject
 
             Log.WriteLine($"[{ConfigFile.AppName}] 启动");
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="builder"></param>
+        // 注意在Program.CreateHostBuilder，添加Autofac服务工厂
+        public void ConfigureContainer(ContainerBuilder builder) => builder.RegisterModule(new AutofacModuleRegister());
 
         /// <summary>
         /// </summary>

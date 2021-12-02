@@ -279,6 +279,15 @@
             <param name="ex"></param>
             <returns></returns>
         </member>
+        <member name="T:DemoProject.Middleware.AutofacModuleRegister">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:DemoProject.Middleware.AutofacModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            </summary>
+            <param name="builder"></param>
+        </member>
         <member name="T:DemoProject.Middleware.SwaggerMiddleware">
             <summary>
                 Swagger中间件
@@ -327,6 +336,11 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+        </member>
+        <member name="M:DemoProject.Startup.ConfigureContainer(Autofac.ContainerBuilder)">
+            <summary>
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="M:DemoProject.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>

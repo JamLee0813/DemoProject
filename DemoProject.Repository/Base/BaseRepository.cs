@@ -1,6 +1,7 @@
 ﻿using DemoProject.Model.Dto;
 using DemoProject.Repository.Sugar;
 using SqlSugar;
+using SqlSugar.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -45,7 +46,7 @@ namespace DemoProject.Repository.Base
         /// <param name="updateIgnoreExpression">忽略更新字段表达式</param>
         /// <param name="updateWhereExpression">更新条件表达式</param>
         /// <returns></returns>
-        public TEntity SaveSync(TEntity entity,
+        public TEntity Save(TEntity entity,
             Expression<Func<TEntity, object>> insertExpression = null,
             Expression<Func<TEntity, object>> insertIgnoreExpression = null,
             Expression<Func<TEntity, object>> updateExpression = null,
@@ -73,7 +74,7 @@ namespace DemoProject.Repository.Base
         /// <param name="updateIgnoreExpression">忽略更新字段表达式</param>
         /// <param name="updateWhereExpression">更新条件表达式</param>
         /// <returns></returns>
-        public List<TEntity> SaveSync(List<TEntity> entities,
+        public List<TEntity> Save(List<TEntity> entities,
             Expression<Func<TEntity, object>> insertExpression = null,
             Expression<Func<TEntity, object>> insertIgnoreExpression = null,
             Expression<Func<TEntity, object>> updateExpression = null,
@@ -101,7 +102,7 @@ namespace DemoProject.Repository.Base
         /// <param name="updateIgnoreExpression">忽略更新字段表达式</param>
         /// <param name="updateWhereExpression">更新条件表达式</param>
         /// <returns></returns>
-        public async Task<TEntity> Save(TEntity entity,
+        public async Task<TEntity> SaveAsync(TEntity entity,
             Expression<Func<TEntity, object>> insertExpression = null,
             Expression<Func<TEntity, object>> insertIgnoreExpression = null,
             Expression<Func<TEntity, object>> updateExpression = null,
@@ -129,7 +130,7 @@ namespace DemoProject.Repository.Base
         /// <param name="updateIgnoreExpression">忽略更新字段表达式</param>
         /// <param name="updateWhereExpression">更新条件表达式</param>
         /// <returns></returns>
-        public async Task<List<TEntity>> Save(List<TEntity> entities,
+        public async Task<List<TEntity>> SaveAsync(List<TEntity> entities,
             Expression<Func<TEntity, object>> insertExpression = null,
             Expression<Func<TEntity, object>> insertIgnoreExpression = null,
             Expression<Func<TEntity, object>> updateExpression = null,
@@ -156,7 +157,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<int> Add(TEntity entity)
+        public async Task<int> AddAsync(TEntity entity)
         {
             //var i = await Task.Run(() => _db.Insertable(entity).ExecuteReturnBigIdentity());
             ////返回的i是long类型,这里你可以根据你的业务需要进行处理
@@ -174,7 +175,7 @@ namespace DemoProject.Repository.Base
         /// <param name="lstIgnoreColumns"></param>
         /// <param name="tableName">写入与实体名字不一样的表名</param>
         /// <returns></returns>
-        public async Task<int> Add(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null,
+        public async Task<int> AddAsync(TEntity entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null,
             string tableName = null)
         {
             var insert = string.IsNullOrWhiteSpace(tableName)
@@ -192,7 +193,7 @@ namespace DemoProject.Repository.Base
         /// <param name="entity">实体类</param>
         /// <param name="insertColumns">指定只插入列</param>
         /// <returns>返回自增量列</returns>
-        public async Task<int> Add(TEntity entity, Expression<Func<TEntity, object>> insertColumns = null)
+        public async Task<int> AddAsync(TEntity entity, Expression<Func<TEntity, object>> insertColumns = null)
         {
             var insert = Db.Insertable(entity);
             if (insertColumns == null)
@@ -205,21 +206,21 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="listEntity">实体集合</param>
         /// <returns>影响行数</returns>
-        public async Task<int> Add(List<TEntity> listEntity) => await Db.Insertable(listEntity).ExecuteCommandAsync();
+        public async Task<int> AddAsync(List<TEntity> listEntity) => await Db.Insertable(listEntity).ExecuteCommandAsync();
 
         /// <summary>
         ///     写入实体数据(同步)
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public int AddSync(TEntity entity) => Db.Insertable(entity).ExecuteReturnIdentity();
+        public int Add(TEntity entity) => Db.Insertable(entity).ExecuteReturnIdentity();
 
         /// <summary>
         ///     批量插入实体(速度快)(同步)
         /// </summary>
         /// <param name="listEntity">实体集合</param>
         /// <returns>影响行数</returns>
-        public int AddSync(List<TEntity> listEntity) => Db.Insertable(listEntity).ExecuteCommand();
+        public int Add(List<TEntity> listEntity) => Db.Insertable(listEntity).ExecuteCommand();
 
         #endregion 增
 
@@ -260,7 +261,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<bool> Delete(TEntity entity)
+        public async Task<bool> DeleteAsync(TEntity entity)
         {
             return await Db.Deleteable(entity).ExecuteCommandHasChangeAsync();
         }
@@ -270,7 +271,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public async Task<bool> DeleteById(object id)
+        public async Task<bool> DeleteByIdAsync(object id)
         {
             //var i = await Task.Run(() => _db.Deleteable<TEntity>(id).ExecuteCommand());
             //return i > 0;
@@ -282,7 +283,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="ids">主键ID集合</param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIds(object[] ids) =>
+        public async Task<bool> DeleteByIdsAsync(object[] ids) =>
             await Db.Deleteable<TEntity>().In(ids).ExecuteCommandHasChangeAsync();
 
         /// <summary>
@@ -290,7 +291,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public async Task<bool> LogicalDeleteById(object id)
+        public async Task<bool> LogicalDeleteByIdAsync(object id)
         {
             return await Db.Updateable<TEntity>(new { IsDeleted = true, Id = id }).ExecuteCommandHasChangeAsync();
         }
@@ -393,24 +394,24 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="entity">博文实体类</param>
         /// <returns></returns>
-        public async Task<bool> Update(TEntity entity)
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
             //这种方式会以主键为条件
             return await Db.Updateable(entity).ExecuteCommandHasChangeAsync();
         }
 
-        public async Task<bool> Update(string strSql, SugarParameter[] parameters = null)
+        public async Task<bool> UpdateAsync(string strSql, SugarParameter[] parameters = null)
         {
             return await Db.Ado.ExecuteCommandAsync(strSql, parameters) > 0;
         }
 
-        public async Task<bool> Update(TEntity entity, string strWhere)
+        public async Task<bool> UpdateAsync(TEntity entity, string strWhere)
         {
             //return await Task.Run(() => _db.Updateable(entity).Where(strWhere).ExecuteCommand() > 0);
             return await Db.Updateable(entity).Where(strWhere).ExecuteCommandHasChangeAsync();
         }
 
-        public async Task<bool> Update(
+        public async Task<bool> UpdateAsync(
             TEntity entity,
             List<string> lstColumns = null,
             List<string> lstIgnoreColumns = null,
@@ -453,14 +454,14 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="whereExpression">条件表达式</param>
         /// <returns></returns>
-        public async Task<int> Count(Expression<Func<TEntity, bool>> whereExpression)
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> whereExpression)
         {
             return await Db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).CountAsync();
         }
 
-        public async Task<TEntity> QueryById(int objId) => await Db.Queryable<TEntity>().In(objId).SingleAsync();
+        public async Task<TEntity> QueryByIdAsync(int objId) => await Db.Queryable<TEntity>().In(objId).SingleAsync();
 
-        public TEntity QueryByIdSync(object objId) => Db.Queryable<TEntity>().In(objId).Single();
+        public TEntity QueryById(object objId) => Db.Queryable<TEntity>().In(objId).Single();
 
         /// <summary>
         ///     功能描述:根据ID查询一条数据
@@ -468,7 +469,7 @@ namespace DemoProject.Repository.Base
         /// <param name="objId">id（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <param name="blnUseCache">是否使用缓存</param>
         /// <returns>数据实体</returns>
-        public async Task<TEntity> QueryById(int objId, bool blnUseCache = false)
+        public async Task<TEntity> QueryByIdAsync(int objId, bool blnUseCache = false)
         {
             //return await Task.Run(() => _db.Queryable<TEntity>().WithCacheIF(blnUseCache).InSingle(objId));
             return await Db.Queryable<TEntity>().WithCacheIF(blnUseCache).In(objId).SingleAsync();
@@ -479,7 +480,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="lstIds">id列表（必须指定主键特性 [SugarColumn(IsPrimaryKey=true)]），如果是联合主键，请使用Where条件</param>
         /// <returns>数据实体列表</returns>
-        public async Task<List<TEntity>> QueryByIDs(int[] lstIds)
+        public async Task<List<TEntity>> QueryByIdsAsync(int[] lstIds)
         {
             //return await Task.Run(() => _db.Queryable<TEntity>().In(lstIds).ToList());
             return await Db.Queryable<TEntity>().In(lstIds).ToListAsync();
@@ -490,7 +491,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="objId">唯一主键ID</param>
         /// <returns></returns>
-        public async Task<TEntity> QueryByIdNotDeleted(int objId)
+        public async Task<TEntity> QueryByIdNotDeletedAsync(int objId)
         {
             return await Db.Queryable<TEntity>().In(objId).Where("isdeleted = 'f'").SingleAsync();
         }
@@ -500,7 +501,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="lstIds">唯一主键ID列表</param>
         /// <returns></returns>
-        public async Task<List<TEntity>> QueryByIdsNotDeleted(int[] lstIds)
+        public async Task<List<TEntity>> QueryByIdsNotDeletedAsync(int[] lstIds)
         {
             return await Db.Queryable<TEntity>().In(lstIds).Where("isdeleted = 'f'").ToListAsync();
         }
@@ -509,18 +510,14 @@ namespace DemoProject.Repository.Base
         ///     功能描述:查询所有数据
         /// </summary>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query()
-        {
-            //return await Task.Run(() => _entityDb.GetList());
-            return await Db.Queryable<TEntity>().ToListAsync();
-        }
+        public async Task<List<TEntity>> QueryAsync() => await Db.Queryable<TEntity>().ToListAsync();
 
         /// <summary>
         ///     功能描述:查询数据列表
         /// </summary>
         /// <param name="strWhere">条件</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(string strWhere)
+        public async Task<List<TEntity>> QueryAsync(string strWhere)
         {
             return await Db.Queryable<TEntity>().WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToListAsync();
         }
@@ -530,10 +527,7 @@ namespace DemoProject.Repository.Base
         /// </summary>
         /// <param name="whereExpression">whereExpression</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression)
-        {
-            return await Db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
-        }
+        public async Task<List<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> whereExpression) => await Db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).ToListAsync();
 
         /// <summary>
         ///     功能描述:查询一个列表
@@ -542,10 +536,9 @@ namespace DemoProject.Repository.Base
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <param name="tableName">指定表名</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression, string strOrderByFields,
+        public async Task<List<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> whereExpression, string strOrderByFields,
             string tableName = null)
         {
-            //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFields), strOrderByFields).WhereIF(whereExpression != null, whereExpression).ToList());
             if (!string.IsNullOrWhiteSpace(tableName))
                 return await Db.Queryable<TEntity>().WhereIF(whereExpression != null, whereExpression).AS(tableName)
                     .OrderByIF(strOrderByFields != null, strOrderByFields).ToListAsync();
@@ -560,7 +553,7 @@ namespace DemoProject.Repository.Base
         /// <param name="orderByExpression"></param>
         /// <param name="isAsc"></param>
         /// <returns></returns>
-        public async Task<List<TEntity>> Query(Expression<Func<TEntity, bool>> whereExpression,
+        public async Task<List<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> whereExpression,
             Expression<Func<TEntity, object>> orderByExpression, bool isAsc = true)
         {
             //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(orderByExpression != null, orderByExpression, isAsc ? OrderByType.Asc : OrderByType.Desc).WhereIF(whereExpression != null, whereExpression).ToList());
@@ -575,7 +568,7 @@ namespace DemoProject.Repository.Base
         /// <param name="strWhere">条件</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(string strWhere, string strOrderByFields)
+        public async Task<List<TEntity>> QueryAsync(string strWhere, string strOrderByFields)
         {
             //return await Task.Run(() => _db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFields), strOrderByFields).WhereIF(!string.IsNullOrEmpty(strWhere), strWhere).ToList());
             return await Db.Queryable<TEntity>().OrderByIF(!string.IsNullOrEmpty(strOrderByFields), strOrderByFields)
@@ -589,7 +582,7 @@ namespace DemoProject.Repository.Base
         /// <param name="orderByExpression"></param>
         /// <param name="tableName"></param>
         /// <returns>数据列表</returns>
-        public List<TEntity> QuerySync(Expression<Func<TEntity, bool>> whereExpression = null,
+        public List<TEntity> Query(Expression<Func<TEntity, bool>> whereExpression = null,
             Expression<Func<TEntity, object>> orderByExpression = null,
             string tableName = null)
         {
@@ -608,7 +601,7 @@ namespace DemoProject.Repository.Base
         /// <param name="intTop">前N条</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(
+        public async Task<List<TEntity>> QueryAsync(
             Expression<Func<TEntity, bool>> whereExpression,
             int intTop,
             string strOrderByFields)
@@ -625,7 +618,7 @@ namespace DemoProject.Repository.Base
         /// <param name="intTop">前N条</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(
+        public async Task<List<TEntity>> QueryAsync(
             string strWhere,
             int intTop,
             string strOrderByFields)
@@ -643,7 +636,7 @@ namespace DemoProject.Repository.Base
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(
+        public async Task<List<TEntity>> QueryAsync(
             Expression<Func<TEntity, bool>> whereExpression,
             int intPageIndex,
             int intPageSize,
@@ -662,7 +655,7 @@ namespace DemoProject.Repository.Base
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns>数据列表</returns>
-        public async Task<List<TEntity>> Query(
+        public async Task<List<TEntity>> QueryAsync(
             string strWhere,
             int intPageIndex,
             int intPageSize,
@@ -681,7 +674,7 @@ namespace DemoProject.Repository.Base
         /// <param name="intPageSize">页大小</param>
         /// <param name="strOrderByFields">排序字段，如name asc,age desc</param>
         /// <returns></returns>
-        public async Task<PageModel<TEntity>> QueryPage(Expression<Func<TEntity, bool>> whereExpression,
+        public async Task<PageModel<TEntity>> QueryPageAsync(Expression<Func<TEntity, bool>> whereExpression,
             int intPageIndex = 1, int intPageSize = 20, string strOrderByFields = null)
         {
             RefAsync<int> totalCount = 0;
@@ -714,7 +707,7 @@ namespace DemoProject.Repository.Base
         /// </param>
         /// <param name="whereLambda">查询表达式 (w1, w2) =&gt;w1.UserNo == "")</param>
         /// <returns>值</returns>
-        public async Task<List<TResult>> QueryMuch<T, T2, T3, TResult>(
+        public async Task<List<TResult>> QueryMuchAsync<T, T2, T3, TResult>(
             Expression<Func<T, T2, T3, object[]>> joinExpression,
             Expression<Func<T, T2, T3, TResult>> selectExpression,
             Expression<Func<T, T2, T3, bool>> whereLambda = null) where T : class, new()
@@ -723,7 +716,7 @@ namespace DemoProject.Repository.Base
             return await Db.Queryable(joinExpression).Where(whereLambda).Select(selectExpression).ToListAsync();
         }
 
-        public async Task<List<TResult>> QueryMuch<T1, T2, TResult>(
+        public async Task<List<TResult>> QueryMuchAsync<T1, T2, TResult>(
             Expression<Func<T1, T2, object[]>> joinExpression,
             Expression<Func<T1, T2, TResult>> selectExpression,
             Expression<Func<T1, T2, bool>> whereLambda = null) where T1 : class, new()

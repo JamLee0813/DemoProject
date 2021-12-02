@@ -24,7 +24,7 @@ namespace DemoProject.Controllers
             if (!string.IsNullOrEmpty(loginName) && !string.IsNullOrEmpty(password))
             {
                 //TODO 校验用户名、密码
-                if (loginName.Equals("admin") && password.Equals("admin"))
+                if (loginName.Equals("admin") && password.Equals("demo@admin"))
                 {
                     var tokenModelJwt = new TokenModelJwt()
                     {

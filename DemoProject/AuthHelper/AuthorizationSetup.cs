@@ -34,8 +34,8 @@ namespace DemoProject.AuthHelper
             var symmetricKeyAsBase64 = ConfigFile.AudienceSecret;
             var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64);
             var signingKey = new SymmetricSecurityKey(keyByteArray);
-            var Issuer = ConfigFile.AudienceIssuer;
-            var Audience = ConfigFile.Audience;
+            var issuer = ConfigFile.AudienceIssuer;
+            var audience = ConfigFile.Audience;
 
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
@@ -44,14 +44,14 @@ namespace DemoProject.AuthHelper
 
             // 角色与接口的权限要求参数
             var permissionRequirement = new PermissionRequirement(
-                "/api/denied",// 拒绝授权的跳转地址（目前无用）
+                "/api/denied", // 拒绝授权的跳转地址（目前无用）
                 permission,
-                ClaimTypes.Role,//基于角色的授权
-                Issuer,//发行人
-                Audience,//订阅人
-                signingCredentials,//签名凭据
-                expiration: TimeSpan.FromHours(ConfigFile.TokenValidHours)//接口的过期时间
-                );
+                ClaimTypes.Role, //基于角色的授权
+                issuer, //发行人
+                audience, //订阅人
+                signingCredentials, //签名凭据
+                expiration: TimeSpan.FromHours(ConfigFile.TokenValidHours) //接口的过期时间
+            );
 
             #endregion 参数
 
@@ -67,9 +67,9 @@ namespace DemoProject.AuthHelper
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = signingKey,
                 ValidateIssuer = true,
-                ValidIssuer = Issuer,//发行人
+                ValidIssuer = issuer, //发行人
                 ValidateAudience = true,
-                ValidAudience = Audience,//订阅人
+                ValidAudience = audience, //订阅人
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.FromSeconds(30),
                 RequireExpirationTime = true,
@@ -83,42 +83,43 @@ namespace DemoProject.AuthHelper
                 o.DefaultChallengeScheme = nameof(ApiResponseHandler);
                 o.DefaultForbidScheme = nameof(ApiResponseHandler);
             })
-             // 添加JwtBearer服务
-             .AddJwtBearer(o =>
-             {
-                 o.TokenValidationParameters = tokenValidationParameters;
-                 o.Events = new JwtBearerEvents
-                 {
-                     OnChallenge = context =>
-                     {
-                         context.Response.Headers.Add("Token-Error", context.ErrorDescription);
-                         return Task.CompletedTask;
-                     },
-                     OnAuthenticationFailed = context =>
-                     {
-                         var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                         var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+                // 添加JwtBearer服务
+                .AddJwtBearer(o =>
+                {
+                    o.TokenValidationParameters = tokenValidationParameters;
+                    o.Events = new JwtBearerEvents
+                    {
+                        OnChallenge = context =>
+                        {
+                            context.Response.Headers.Add("Token-Error", context.ErrorDescription);
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                            var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-                         if (jwtToken.Issuer != Issuer)
-                         {
-                             context.Response.Headers.Add("Token-Error-Iss", "issuer is wrong!");
-                         }
+                            if (jwtToken.Issuer != issuer)
+                            {
+                                context.Response.Headers.Add("Token-Error-Iss", "issuer is wrong!");
+                            }
 
-                         if (jwtToken.Audiences.FirstOrDefault() != Audience)
-                         {
-                             context.Response.Headers.Add("Token-Error-Aud", "Audience is wrong!");
-                         }
+                            if (jwtToken.Audiences.FirstOrDefault() != audience)
+                            {
+                                context.Response.Headers.Add("Token-Error-Aud", "Audience is wrong!");
+                            }
 
-                         // 如果过期，则把<是否过期>添加到，返回头信息中
-                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                         {
-                             context.Response.Headers.Add("Token-Expired", "true");
-                         }
-                         return Task.CompletedTask;
-                     }
-                 };
-             })
-             .AddScheme<AuthenticationSchemeOptions, ApiResponseHandler>(nameof(ApiResponseHandler), o => { });
+                            // 如果过期，则把<是否过期>添加到，返回头信息中
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Add("Token-Expired", "true");
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                })
+                .AddScheme<AuthenticationSchemeOptions, ApiResponseHandler>(nameof(ApiResponseHandler), o => { });
 
             // 这里冗余写了一次,因为很多人看不到
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
