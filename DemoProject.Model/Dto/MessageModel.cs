@@ -1,4 +1,5 @@
-﻿using DemoProject.CommonBiz.Enumeration;
+﻿using DemoProject.Common.Helper;
+using DemoProject.CommonBiz.Enumeration;
 
 namespace DemoProject.Model.Dto
 {
@@ -11,7 +12,7 @@ namespace DemoProject.Model.Dto
         /// </summary>
         public MessageModel()
         {
-            Status = (int)HttpStatusEnum.ServerException;
+            Status = HttpStatusEnum.ServerException;
             Msg = HttpStatusEnum.ServerException.GetDescription();
         }
 
@@ -21,7 +22,7 @@ namespace DemoProject.Model.Dto
         /// <param name="msg"></param>
         public MessageModel(HttpStatusEnum status, string msg = null)
         {
-            Status = (int)status;
+            Status = status;
             var msgPrefix = status.GetDescription(); //状态码信息
             Msg = string.IsNullOrWhiteSpace(msg) ? msgPrefix : $"{msgPrefix} {msg}";
         }
@@ -33,7 +34,7 @@ namespace DemoProject.Model.Dto
         /// <param name="msg"></param>
         public MessageModel(HttpStatusEnum status, T response, string msg = null)
         {
-            Status = (int)status;
+            Status = status;
             var msgPrefix = status.GetDescription(); //状态码信息
             Msg = string.IsNullOrWhiteSpace(msg) ? msgPrefix : $"{msgPrefix} {msg}";
             Response = response;
@@ -42,7 +43,7 @@ namespace DemoProject.Model.Dto
         /// <summary>
         ///     状态码
         /// </summary>
-        public int Status { get; set; }
+        public HttpStatusEnum Status { get; set; }
 
         /// <summary>
         ///     返回信息

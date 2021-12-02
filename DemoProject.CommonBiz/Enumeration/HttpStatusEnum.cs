@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace DemoProject.CommonBiz.Enumeration
 {
@@ -142,27 +141,5 @@ namespace DemoProject.CommonBiz.Enumeration
         ///     无访问权限
         /// </summary>
         [Description("无访问权限")] PermissionNoAccess = 7001001
-    }
-
-    /// <summary>
-    ///     Http返回状态码 帮助类
-    /// </summary>
-    public static class HttpStatusHelper
-    {
-        /// <summary>
-        ///     Http返回状态码 描述文本
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static string GetDescription(this HttpStatusEnum obj)
-        {
-            var type = obj.GetType();
-            var field = type.GetField(Enum.GetName(type, obj));
-
-            return !(Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute
-                descAttr)
-                ? string.Empty
-                : descAttr.Description;
-        }
     }
 }

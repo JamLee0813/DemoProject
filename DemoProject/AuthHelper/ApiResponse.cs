@@ -1,4 +1,5 @@
-﻿using DemoProject.Model.Dto;
+﻿using DemoProject.CommonBiz.Enumeration;
+using DemoProject.Model.Dto;
 
 namespace DemoProject.AuthHelper
 {
@@ -63,7 +64,7 @@ namespace DemoProject.AuthHelper
 
             MessageModel = new MessageModel<string>
             {
-                Status = Status,
+                Status = HttpStatusEnum.PermissionNoAccess,
                 Msg = Value
             };
         }

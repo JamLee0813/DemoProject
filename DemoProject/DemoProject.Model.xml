@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DemoProject.Model</name>
+    </assembly>
+    <members>
+        <member name="T:DemoProject.Model.Dto.MessageModel`1">
+            <summary>
+                通用返回信息类
+            </summary>
+        </member>
+        <member name="M:DemoProject.Model.Dto.MessageModel`1.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:DemoProject.Model.Dto.MessageModel`1.#ctor(DemoProject.CommonBiz.Enumeration.HttpStatusEnum,System.String)">
+            <summary>
+            </summary>
+            <param name="status"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="M:DemoProject.Model.Dto.MessageModel`1.#ctor(DemoProject.CommonBiz.Enumeration.HttpStatusEnum,`0,System.String)">
+            <summary>
+            </summary>
+            <param name="status"></param>
+            <param name="response"></param>
+            <param name="msg"></param>
+        </member>
+        <member name="P:DemoProject.Model.Dto.MessageModel`1.Status">
+            <summary>
+                状态码
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.MessageModel`1.Msg">
+            <summary>
+                返回信息
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.MessageModel`1.Response">
+            <summary>
+                返回数据
+            </summary>
+        </member>
+        <member name="M:DemoProject.Model.Dto.MessageModel`1.Success(`0)">
+            <summary>
+                成功的返回模型
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DemoProject.Model.Dto.MessageModel`1.Exception(System.String)">
+            <summary>
+                服务异常的返回模型
+            </summary>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DemoProject.Model.Dto.PageModel`1">
+            <summary>
+                通用分页信息类
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.Page">
+            <summary>
+                当前页标
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.PageCount">
+            <summary>
+                总页数
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.DataCount">
+            <summary>
+                数据总数
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.PageSize">
+            <summary>
+                每页大小
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.StrOrderByFields">
+            <summary>
+                排序规则
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.Param">
+            <summary>
+                查询条件
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Dto.PageModel`1.Data">
+            <summary>
+                返回数据
+            </summary>
+        </member>
+        <member name="T:DemoProject.Model.Models.User">
+            <summary>
+                用户表
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Id">
+            <summary>
+                自增主键ID
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Loginname">
+            <summary>
+                登录名
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Password">
+            <summary>
+                密码
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Name">
+            <summary>
+                姓名
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Createtime">
+            <summary>
+                创建时间
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.User.Updatetime">
+            <summary>
+                更新时间
+            </summary>
+        </member>
+    </members>
+</doc>
