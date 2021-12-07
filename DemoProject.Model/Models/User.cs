@@ -1,11 +1,12 @@
-﻿using SqlSugar;
+﻿using DemoProject.Model.Models.Base;
+using SqlSugar;
 
 namespace DemoProject.Model.Models
 {
     /// <summary>
     ///     用户表
     /// </summary>
-    public class User
+    public class User : RootEntity
     {
         private string _Loginname;
 
@@ -35,15 +36,8 @@ namespace DemoProject.Model.Models
         public string Name { get => _Name; set => _Name = value?.Trim(); }
 
         /// <summary>
-        ///     创建时间
+        ///     是否启用
         /// </summary>
-        [SugarColumn(IsOnlyIgnoreInsert = true, IsOnlyIgnoreUpdate = true)]
-        public System.DateTime? Createtime { get; set; }
-
-        /// <summary>
-        ///     更新时间
-        /// </summary>
-        [SugarColumn(IsOnlyIgnoreInsert = true)]
-        public System.DateTime? Updatetime { get; set; }
+        public bool Enable { get; set; }
     }
 }

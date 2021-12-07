@@ -1,6 +1,10 @@
-﻿using DemoProject.CommonBiz.Enumeration;
+﻿using DemoProject.Common.Helper;
+using DemoProject.CommonBiz.Enumeration;
 using DemoProject.Model.Dto;
+using DemoProject.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 using static DemoProject.AuthHelper.JwtHelper;
 
 namespace DemoProject.Controllers
@@ -12,24 +16,37 @@ namespace DemoProject.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly UserServices _services;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="services"></param>
+        public LoginController(UserServices services)
+        {
+            _services = services;
+        }
+
         /// <summary>
         ///     登录
         /// </summary>
-        /// <param name="loginName">登录名</param>
+        /// <param name="loginname">登录名</param>
         /// <param name="password">密码</param>
         /// <returns></returns>
         [HttpGet]
-        public MessageModel<object> Login(string loginName, string password)
+        public async Task<MessageModel<object>> Login(string loginname, string password)
         {
-            if (!string.IsNullOrEmpty(loginName) && !string.IsNullOrEmpty(password))
+            if (!string.IsNullOrEmpty(loginname) && !string.IsNullOrEmpty(password))
             {
-                //TODO 校验用户名、密码
-                if (loginName.Equals("admin") && password.Equals("demo@admin"))
+                //校验用户名、密码
+                var pwd = password.ToMd5_32();
+                var users = await _services.QueryAsync(it => it.Loginname == loginname && it.Password == pwd && it.Enable);
+                if (users.Any())
                 {
+                    var user = users[0];
                     var tokenModelJwt = new TokenModelJwt()
                     {
-                        Uid = 1,
-                        Role = "超级超级超级管理"
+                        Uid = user.Id,
+                        Role = user.Name
                     };
                     var jwtStr = IssueJwt(tokenModelJwt);
 

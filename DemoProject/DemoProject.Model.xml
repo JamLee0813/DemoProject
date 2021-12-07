@@ -95,6 +95,26 @@
                 返回数据
             </summary>
         </member>
+        <member name="T:DemoProject.Model.Models.Base.RootEntity">
+            <summary>
+                表模型基类
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.Base.RootEntity.Remark">
+            <summary>
+                备注
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.Base.RootEntity.Createtime">
+            <summary>
+                创建时间
+            </summary>
+        </member>
+        <member name="P:DemoProject.Model.Models.Base.RootEntity.Updatetime">
+            <summary>
+                更新时间
+            </summary>
+        </member>
         <member name="T:DemoProject.Model.Models.User">
             <summary>
                 用户表
@@ -120,14 +140,9 @@
                 姓名
             </summary>
         </member>
-        <member name="P:DemoProject.Model.Models.User.Createtime">
+        <member name="P:DemoProject.Model.Models.User.Enable">
             <summary>
-                创建时间
-            </summary>
-        </member>
-        <member name="P:DemoProject.Model.Models.User.Updatetime">
-            <summary>
-                更新时间
+                是否启用
             </summary>
         </member>
     </members>

@@ -21,6 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="DemoProject.Model.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="DemoProject.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
