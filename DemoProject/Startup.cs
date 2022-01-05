@@ -1,4 +1,4 @@
-using Autofac;
+ï»¿using Autofac;
 using DataCenter.Common.Helper;
 using DemoProject.AuthHelper;
 using DemoProject.Common.Config;
@@ -39,20 +39,20 @@ namespace DemoProject
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
-            app.UseSwaggerMiddleware();//·â×°SwaggerÕ¹Ê¾
+            app.UseSwaggerMiddleware();//å°è£…Swaggerå±•ç¤º
             app.UseRouting();
-            app.UseAuthentication();//ÏÈ¿ªÆôÈÏÖ¤
-            app.UseAuthorization();//È»ºóÊÇÊÚÈ¨ÖĞ¼ä¼ş
+            app.UseAuthentication();//å…ˆå¼€å¯è®¤è¯
+            app.UseAuthorization();//ç„¶åæ˜¯æˆæƒä¸­é—´ä»¶
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            Log.WriteLine($"[{ConfigFile.AppName}] Æô¶¯");
+            Log.WriteLine($"[{ConfigFile.AppName}] å¯åŠ¨");
         }
 
         /// <summary>
         /// </summary>
         /// <param name="builder"></param>
-        // ×¢ÒâÔÚProgram.CreateHostBuilder£¬Ìí¼ÓAutofac·şÎñ¹¤³§
+        // æ³¨æ„åœ¨Program.CreateHostBuilderï¼Œæ·»åŠ AutofacæœåŠ¡å·¥å‚
         public void ConfigureContainer(ContainerBuilder builder) => builder.RegisterModule(new AutofacModuleRegister());
 
         /// <summary>
@@ -66,14 +66,14 @@ namespace DemoProject
 
             services.AddControllers(o =>
                 {
-                    o.Filters.Add(typeof(GlobalExceptionsFilter)); // È«¾ÖÒì³£¹ıÂË
+                    o.Filters.Add(typeof(GlobalExceptionsFilter)); // å…¨å±€å¼‚å¸¸è¿‡æ»¤
                 })
-                //È«¾ÖÅäÖÃJsonĞòÁĞ»¯´¦Àí
+                //å…¨å±€é…ç½®Jsonåºåˆ—åŒ–å¤„ç†
                 .AddNewtonsoftJson(options =>
                 {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; //ºöÂÔÑ­»·ÒıÓÃ
-                    options.SerializerSettings.ContractResolver = new DefaultContractResolver(); //È¡ÏûÄ¬ÈÏÍÕ·å
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local; //Æ¥ÅäÊ±Çø
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; //å¿½ç•¥å¾ªç¯å¼•ç”¨
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver(); //å–æ¶ˆé»˜è®¤é©¼å³°
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local; //åŒ¹é…æ—¶åŒº
                 });
         }
     }

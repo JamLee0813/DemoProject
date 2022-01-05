@@ -261,6 +261,15 @@
             <param name="password">密码</param>
             <returns></returns>
         </member>
+        <member name="M:DemoProject.Controllers.LoginController.Register(System.String,System.String,System.String)">
+            <summary>
+                注册
+            </summary>
+            <param name="loginname">登录名</param>
+            <param name="password">密码</param>
+            <param name="password2">确认密码</param>
+            <returns></returns>
+        </member>
         <member name="T:DemoProject.Filter.GlobalExceptionsFilter">
             <summary>
                 全局异常错误日志

@@ -56,5 +56,18 @@ namespace DemoProject.Controllers
 
             return new MessageModel<object>(HttpStatusEnum.PermissionNoAccess);
         }
+
+        /// <summary>
+        ///     注册
+        /// </summary>
+        /// <param name="loginname">登录名</param>
+        /// <param name="password">密码</param>
+        /// <param name="password2">确认密码</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Task<MessageModel<bool>> Register([FromForm] string loginname, [FromForm] string password, [FromForm] string password2)
+        {
+            return null;
+        }
     }
 }
